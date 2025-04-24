@@ -14,18 +14,30 @@ spec:
     spec:
       containers:
         - name: user
-          image: user:1.5
+          image: user:2.0
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: mysql
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
             - name: DB_NAME
-              value: user
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
             - name: DB_USERNAME
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
             - name: DB_PASSWORD
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
 ---
 
 apiVersion: v1
