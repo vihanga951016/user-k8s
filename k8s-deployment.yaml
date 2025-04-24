@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-k8s-dep
+spec:
+  replicas: 2  # Moved replicas to the correct location
+  selector:
+    matchLabels:
+      app: user-k8s
+  template:  # Moved template to the correct location
+    metadata:
+      labels:
+        app: user-k8s
+    spec:
+      containers:  # Fixed indentation and field name (should be 'containers', not 'container')
+        - name: user-k8s
+          image: user:1.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8585
